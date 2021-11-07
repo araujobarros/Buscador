@@ -7,17 +7,24 @@ import {
     DropdownButton,
     Dropdown,
     Button} from 'react-bootstrap';
+import DataContext from '../Context/DataContext';
 
 
 const Header = () => {
+
+    const { setParams } = useContext(DataContext);
 
     const [webSearch, setWebSearch] = useState('Web');
     const [category, setCategory] = useState('Categorias');
     const [term, setTerm] = useState('');
 
-    function handleSelect(event, setState) {
-        setState(event);
-    }
+    const handleSelect = (event, setState) => setState(event);
+
+    const handleClick = () => setParams({
+        web: webSearch,
+        category: category,
+        term: term
+    })
 
     return (
         <>
@@ -50,7 +57,7 @@ const Header = () => {
                 aria-label="Text input with 2 dropdown buttons"
                 valeu={term}
                 onChange={ (event) => handleSelect(event.target.value, setTerm) }/>
-                <Button >Search</Button>
+                <Button onClick={handleClick} >Search</Button>
             </InputGroup>
         </>
     )
